@@ -64,9 +64,14 @@ double NumberArray::getAverage() const {
     average += data_m[i];
   }
 
-  average /= size_m;  
+  return average /= size_m;  
 }
 
 void NumberArray::print() const {
+  for (int i {}; i < size_m; ++i)
+  {
+    std::cout << data_m[i];
+  }
 
+  std::cout << std::endl;
 }
