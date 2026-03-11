@@ -43,11 +43,28 @@ double NumberArray::getMin() const {
 }
 
 double NumberArray::getMax() const {
+  double max { *data_m };
 
+  for (int i { 1 }; i < size_m; ++i)
+  {
+    if (data_m[i] > max)
+    {
+      max = data_m[i];
+    }
+  }
+
+  return max;
 }
 
 double NumberArray::getAverage() const {
+  double average {};  
 
+  for (int i {}; i < size_m; ++i)
+  {
+    average += data_m[i];
+  }
+
+  average /= size_m;  
 }
 
 void NumberArray::print() const {
