@@ -1,6 +1,9 @@
-static int MAX_SIZE { 65536 };
+#include <limits>
 
 class NumberArray {
+  static constexpr double INVALID = std::numeric_limits<double>::denorm_min();
+  static const int MAX_SIZE = 65536;
+
   int size_m;
   double *data_m;
 public:

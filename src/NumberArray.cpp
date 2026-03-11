@@ -20,11 +20,26 @@ void NumberArray::setNumber(int index, double value) {
 }
 
 double NumberArray::getNumber(int index) const {
-
+  if (index < 0 || index > size_m) 
+  {
+    return INVALID;
+  } 
+  
+  return data_m[index];
 }
 
 double NumberArray::getMin() const {
+  double min { *data_m };
 
+  for (int i { 1 }; i < size_m; ++i)
+  {
+    if (data_m[i] < min) 
+    {
+      min = data_m[i];
+    }
+  }
+
+  return min;
 }
 
 double NumberArray::getMax() const {
