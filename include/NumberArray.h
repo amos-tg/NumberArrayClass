@@ -1,8 +1,8 @@
 static int MAX_SIZE { 65536 };
 
 class NumberArray {
-  int size;
-  double *data;
+  int size_m;
+  double *data_m;
 public:
   NumberArray(int size = MAX_SIZE);
 
