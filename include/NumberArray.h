@@ -1,3 +1,6 @@
+#ifndef NUMBER_ARRAY_H
+#define NUMBER_ARRAY_H
+
 #include <limits>
 #include <cstddef>
 
@@ -28,3 +31,5 @@ public:
 
   void print() const;
 };
+
+#endif

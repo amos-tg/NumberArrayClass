@@ -11,6 +11,7 @@ NumberArray::NumberArray(size_t size)
 
 NumberArray::~NumberArray() 
 {
+  // de-alloc the array
   delete [] data_m;  
   std::cout << "Deallocated data array" << std::endl;
 }
@@ -22,7 +23,8 @@ size_t NumberArray::size() const
 
 void NumberArray::setNumber(size_t index, double value) 
 {
-  if (index > size_m || index < 0) 
+  // index validity check
+  if (index >= size_m || index < 0) 
   {
     return; 
   }
@@ -32,7 +34,8 @@ void NumberArray::setNumber(size_t index, double value)
 
 double NumberArray::getNumber(size_t index) const 
 {
-  if (index < 0 || index > size_m) 
+  // index validity check
+  if (index >= size_m || index < 0) 
   {
     return INVALID;
   } 
@@ -42,8 +45,10 @@ double NumberArray::getNumber(size_t index) const
 
 double NumberArray::getMin() const 
 {
-  double min { *data_m };
+  // init min to the first element in the array
+  double min { data_m[0] };
 
+  // check for the smallest element in the array
   for (size_t i { 1 }; i < size_m; ++i)
   {
     if (data_m[i] < min) 
@@ -57,8 +62,10 @@ double NumberArray::getMin() const
 
 double NumberArray::getMax() const 
 {
-  double max { *data_m };
+  // init max to first element in array
+  double max { data_m[0] };
 
+  // check for largest element in array
   for (size_t i { 1 }; i < size_m; ++i)
   {
     if (data_m[i] > max)
@@ -72,22 +79,27 @@ double NumberArray::getMax() const
 
 double NumberArray::getAverage() const 
 {
-  double average {};  
+  // might not be big enough for large arrays
+  long double average {};  
 
+  // sum the array into the average var
   for (size_t i {}; i < size_m; ++i)
   {
     average += data_m[i];
   }
 
+  // divide by num elements to get average
   return average /= size_m;  
 }
 
 void NumberArray::print() const 
 {
+  // print all the array elements
   for (size_t i {}; i < size_m; ++i)
   {
     std::cout << data_m[i];
   }
 
+  // flush and print a newline
   std::cout << std::endl;
 }
