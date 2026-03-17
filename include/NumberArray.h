@@ -15,6 +15,8 @@ public:
   /// Default array size when the constructor is not passed a specific size.
   static const size_t DEFAULT_SIZE = 128;
 
+  ///  - size_t size : defaults to NumberArray::DEFAULT_SIZE, the size of the
+  ///  array you want allocated in terms of the number of elements.
   NumberArray(size_t size = DEFAULT_SIZE);
 
   ~NumberArray();
