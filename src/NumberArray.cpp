@@ -1,25 +1,37 @@
 #include "NumberArray.h"
 #include <iostream>
+#include <cstddef>
 
-NumberArray::NumberArray(int size) {
+NumberArray::NumberArray(size_t size) 
+{
   // allocate array and initialize all elements to zero
-  data_m = new double[MAX_SIZE] {};   
+  data_m = new double[size] {};   
+  size_m = size;
 }
 
-NumberArray::~NumberArray() {
+NumberArray::~NumberArray() 
+{
   delete [] data_m;  
   std::cout << "Deallocated data array" << std::endl;
 }
 
-void NumberArray::setNumber(int index, double value) {
-  if (index > size_m || index < 0) {
+size_t NumberArray::size() const 
+{
+  return size_m;
+}
+
+void NumberArray::setNumber(size_t index, double value) 
+{
+  if (index > size_m || index < 0) 
+  {
     return; 
   }
 
   data_m[index] = value;
 }
 
-double NumberArray::getNumber(int index) const {
+double NumberArray::getNumber(size_t index) const 
+{
   if (index < 0 || index > size_m) 
   {
     return INVALID;
@@ -28,10 +40,11 @@ double NumberArray::getNumber(int index) const {
   return data_m[index];
 }
 
-double NumberArray::getMin() const {
+double NumberArray::getMin() const 
+{
   double min { *data_m };
 
-  for (int i { 1 }; i < size_m; ++i)
+  for (size_t i { 1 }; i < size_m; ++i)
   {
     if (data_m[i] < min) 
     {
@@ -42,10 +55,11 @@ double NumberArray::getMin() const {
   return min;
 }
 
-double NumberArray::getMax() const {
+double NumberArray::getMax() const 
+{
   double max { *data_m };
 
-  for (int i { 1 }; i < size_m; ++i)
+  for (size_t i { 1 }; i < size_m; ++i)
   {
     if (data_m[i] > max)
     {
@@ -56,10 +70,11 @@ double NumberArray::getMax() const {
   return max;
 }
 
-double NumberArray::getAverage() const {
+double NumberArray::getAverage() const 
+{
   double average {};  
 
-  for (int i {}; i < size_m; ++i)
+  for (size_t i {}; i < size_m; ++i)
   {
     average += data_m[i];
   }
@@ -67,8 +82,9 @@ double NumberArray::getAverage() const {
   return average /= size_m;  
 }
 
-void NumberArray::print() const {
-  for (int i {}; i < size_m; ++i)
+void NumberArray::print() const 
+{
+  for (size_t i {}; i < size_m; ++i)
   {
     std::cout << data_m[i];
   }

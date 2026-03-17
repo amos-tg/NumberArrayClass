@@ -1,19 +1,26 @@
 #include <limits>
+#include <cstddef>
 
 class NumberArray {
-  static constexpr double INVALID = std::numeric_limits<double>::denorm_min();
-  static const int MAX_SIZE = 65536;
-
-  int size_m;
+  size_t size_m;
   double *data_m;
 public:
-  NumberArray(int size = MAX_SIZE);
+  /// An extrememly unlikely to be used value; it might be better to use a 
+  /// flag, but this will work just as well %99.99... of the time.
+  static constexpr double INVALID = std::numeric_limits<double>::denorm_min();
+
+  /// Default array size when the constructor is not passed a specific size.
+  static const size_t DEFAULT_SIZE = 128;
+
+  NumberArray(size_t size = DEFAULT_SIZE);
 
   ~NumberArray();
 
-  void setNumber(int index, double value);
+  size_t size() const; 
 
-  double getNumber(int index) const;
+  void setNumber(size_t index, double value);
+
+  double getNumber(size_t index) const;
 
   double getMin() const;
   double getMax() const;
