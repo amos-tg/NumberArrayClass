@@ -8,26 +8,36 @@ using namespace std;
 
 const char *TEST_PASS = "Passed";
 
-const char *DEFAULT_CONSTRUCTOR_TEST; 
-const char *PARAM_CONSTRUCTOR_TEST;
-const char *SET_GET_NUMBER_TESTS; 
-const char *STATISTICAL_TESTS;
-const char *PRINT_TEST;
+const char *DEFAULT_CONSTRUCTOR_TEST = "Test (NumberArray constructor): "; 
+const char *PARAM_CONSTRUCTOR_TEST = 
+  "Test (NumberArray Parameterized constructor): ";
+const char *SET_GET_NUMBER_TESTS = "Test (NumberArray {set,get}Number methods): "; 
+const char *STATISTICAL_TESTS = 
+  "Test (NumberArray {min,max,average}Number methods): ";
+const char *PRINT_TEST = "Test (NumberArray print method): ";
 
+/// tests the default constructor of the NumberArray class
 void defaultConstructorTest(void);
 
+/// tests the parameterized constructor of the NumberArray class
 void paramConstructorTest(void);
 
+/// tests the set and get Number methods of the NumberArray class
 void setGetNumberTests(void);
 
+/// tests the {min,max,average}Number methods of the NumberArray class
 void statisticalTests(void);
 
+/// tests the print method of the NumberArray class
 void printTests(void);
 
 int main(void)
 {
   defaultConstructorTest();  
-
+  paramConstructorTest();
+  setGetNumberTests();
+  statisticalTests();
+  printTests();
 
   return 0;
 }
