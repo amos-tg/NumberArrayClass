@@ -5,7 +5,10 @@
 #include <cstddef>
 
 class NumberArray {
+  /// size of the array in terms of total number of double elements
   size_t size_m;
+
+  /// the dynamically allocated array of size size_m of doubles
   double *data_m;
 public:
   /// An extrememly unlikely to be used value; it might be better to use a 
@@ -15,22 +18,47 @@ public:
   /// Default array size when the constructor is not passed a specific size.
   static const size_t DEFAULT_SIZE = 128;
 
-  ///  - size_t size : defaults to NumberArray::DEFAULT_SIZE, the size of the
+  /// - size_t size : defaults to NumberArray::DEFAULT_SIZE, the size of the
   ///  array you want allocated in terms of the number of elements.
+  ///  
+  /// Instantiates a NumberArray class, which allows dynamic allocation of an
+  /// array of doubles. The size argument indicates the number of doubles you
+  /// want to be able to fit in the array maximally.  
   NumberArray(size_t size = DEFAULT_SIZE);
 
+  /// Deallocates the dynamically allocated double array, and prints a message
+  /// which indicates that has been done.
   ~NumberArray();
 
+  /// returns the size of the array, the total number of double elements the
+  /// array has space for.
   size_t size() const; 
 
+  /// - size_t index : the index of the array which is assigned value.
+  /// - double value : the value which is assigned to the given index of the
+  /// array.
+  ///
+  /// The index given must be valid relative to the total size of the array.
+  /// Assigns the element at index to value.
   void setNumber(size_t index, double value);
 
+  /// - size_t index
+  ///
+  /// The index given must be valid relative to the total size of the array.
+  /// Returns the double value present in the array at the given index.
   double getNumber(size_t index) const;
 
+  /// Returns the smallest number in the array.
   double getMin() const;
+
+  /// Returns the largest number in the array.
   double getMax() const;
+
+  /// Returns a double value that is the average across all elements of the
+  /// array.
   double getAverage() const;
 
+  /// Prints out all the values in the array.
   void print() const;
 };
 

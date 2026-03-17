@@ -16,6 +16,9 @@ const char *STATISTICAL_TESTS =
   "Test (NumberArray {min,max,average}Number methods): ";
 const char *PRINT_TEST = "Test (NumberArray print method): ";
 
+// The test functions follow the testing documents specifications in order,
+// both internally, and in terms of their calling sequence in main().
+
 /// tests the default constructor of the NumberArray class
 void defaultConstructorTest(void);
 
@@ -117,7 +120,8 @@ void statisticalTests(void)
   assert(tested.getMin() == 1.0);
   assert(tested.getAverage() == 5.5);
 
-  // using random values
+  // using random values, pseudo-random gen seeded with random gen, only random
+  // on certain platforms.
   random_device rand;  
   mt19937 prand { rand() };
   uniform_real_distribution<> gen(0.0, 30.0);
