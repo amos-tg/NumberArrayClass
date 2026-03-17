@@ -15,6 +15,7 @@ const char *SET_GET_NUMBER_TESTS = "Test (NumberArray {set,get}Number methods): 
 const char *STATISTICAL_TESTS = 
   "Test (NumberArray {min,max,average}Number methods): ";
 const char *PRINT_TEST = "Test (NumberArray print method): ";
+const char *EDGE_CASE_TEST = "Test (NumberArray edge case tests): ";
 
 // The test functions follow the testing documents specifications in order,
 // both internally, and in terms of their calling sequence in main().
@@ -34,6 +35,9 @@ void statisticalTests(void);
 /// tests the print method of the NumberArray class
 void printTests(void);
 
+/// tests the edge case uses of the NumberArray class
+void edgeCaseTests(void);
+
 int main(void)
 {
   // cout << '\n'; seperates the tests dealloc messages
@@ -47,6 +51,8 @@ int main(void)
   statisticalTests();
   cout << '\n';
   printTests();
+  cout << '\n';
+  edgeCaseTests();
 
   return 0;
 }
@@ -157,5 +163,22 @@ void printTests(void)
   }
   test.print();
 
+  cout << TEST_PASS << endl;
+}
+
+void edgeCaseTests(void)
+{
+  cout << EDGE_CASE_TEST;
+  NumberArray test { 1 };
+  assert(test.getNumber(0) == 0.0);
+  test.setNumber(0, 10.0);
+  assert(test.getNumber(0) == 10.0);
+  test.setNumber(0, -11.123);
+  assert(test.getNumber(0) == -11.123);
+  assert(test.getMax() == -11.123);
+  assert(test.getMin() == -11.123);
+  assert(test.getAverage() == -11.123);
+  cout << '\n';
+  test.print();
   cout << TEST_PASS << endl;
 }
