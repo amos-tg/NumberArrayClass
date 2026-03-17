@@ -33,10 +33,16 @@ void printTests(void);
 
 int main(void)
 {
+  // cout << '\n'; seperates the tests dealloc messages
+                                  
   defaultConstructorTest();  
+  cout << '\n';
   paramConstructorTest();
+  cout << '\n';
   setGetNumberTests();
+  cout << '\n';
   statisticalTests();
+  cout << '\n';
   printTests();
 
   return 0;
@@ -51,6 +57,7 @@ void defaultConstructorTest(void)
   for (int i {}; i < test.size(); ++i)
     assert(test.getNumber(i) == 0.0);
 
+  cout << '\n';
   test.print();
   cout << TEST_PASS << endl;
 } 
@@ -75,11 +82,11 @@ void setGetNumberTests(void)
   NumberArray tested { SET_SIZE };
   
   // valid index tests
-  tested.setNumber(SET_SIZE, 10.0);          
+  tested.setNumber(SET_SIZE - 1, 10.0);          
   tested.setNumber(SET_SIZE / 2, 10.0);
   tested.setNumber(0, 10.0);
 
-  assert(tested.getNumber(SET_SIZE) == 10.0);
+  assert(tested.getNumber(SET_SIZE - 1) == 10.0);
   assert(tested.getNumber(SET_SIZE / 2) == 10.0);
   assert(tested.getNumber(0) == 10.0);
   
@@ -90,8 +97,8 @@ void setGetNumberTests(void)
   assert(tested.getNumber(-1) == NumberArray::INVALID); 
   assert(tested.getNumber(tested.size()) == NumberArray::INVALID);
 
-  cout << "Invalid Number Default return = " << NumberArray::INVALID;
-  cout << " : " << TEST_PASS << endl;
+  cout << '\n' << "Invalid Number Default return = " << NumberArray::INVALID;
+  cout << '\n' << TEST_PASS << endl;
 }
 
 void statisticalTests(void)
@@ -108,7 +115,7 @@ void statisticalTests(void)
   
   assert(tested.getMax() == 10.0);
   assert(tested.getMin() == 1.0);
-  assert(tested.getAverage() == 5.0);
+  assert(tested.getAverage() == 5.5);
 
   // using random values
   random_device rand;  
@@ -137,6 +144,7 @@ void printTests(void)
 {
   cout << PRINT_TEST;
   NumberArray test {};
+  cout << '\n';
   test.print();
 
   for (int i {}, set { 1 }; i < test.size(); ++i, ++set)

@@ -97,7 +97,7 @@ void NumberArray::print() const
   // print all the array elements
   for (size_t i {}; i < size_m; ++i)
   {
-    std::cout << data_m[i];
+    std::cout << data_m[i] << ' ';
   }
 
   // flush and print a newline
