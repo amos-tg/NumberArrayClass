@@ -14,9 +14,6 @@ NumberArray::NumberArray(const NumberArray& other)
   // set size and alloc zeroed array
   : size_m(other.size_m), data_m(new double[other.size_m] {})
 {
-  if (!size_m) return;
-  
-  // deep copy the data
   for (int i {}; i < size_m; ++i)
     data_m[i] = other.data_m[i];
 }
@@ -31,9 +28,6 @@ NumberArray& NumberArray::operator=(const NumberArray& other)
 
   delete [] data_m;
   data_m = new double[other.size_m] {};
-
-  // dereferencing new double[0], *double ptr is undefined behavior
-  if (!size_m) return *this;
 
   for (int i {}; i < size_m; ++i)
     data_m[i] = other.data_m[i];  
