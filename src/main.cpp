@@ -38,6 +38,12 @@ void printTests(void);
 /// tests the edge case uses of the NumberArray class
 void edgeCaseTests(void);
 
+/// tests the copy constructor of the NumberArray class
+void copyConstructorTests(void);
+
+/// tests the assignement operator of the NumberArray class
+void assignmenOpTests(void);
+
 int main(void)
 {
   // cout << '\n'; seperates the tests dealloc messages
@@ -181,4 +187,40 @@ void edgeCaseTests(void)
   cout << '\n';
   test.print();
   cout << TEST_PASS << endl;
+}
+
+void copyConstructorTests(void)
+{
+  // create a new object
+  size_t size { 20 };
+  NumberArray orig { 20 };
+
+  // put some values in original object
+  for (int i {}; i < size; ++i)
+    orig.setNumber(i, i);
+
+  // copy original object with copy constructor
+  NumberArray copied { orig };
+  assert(orig.size() == copied.size());
+
+  // verify values were copied
+  for (int i {}; i < size; ++i)
+    assert(copied.getNumber(i) == orig.getNumber(i));
+
+  //  modify orig. and confirm copy doesn't change
+  orig.setNumber(size / 2, 25.555555);
+  assert(copied.getNumber(size / 2) != 25.555555);
+
+  // modify copy and confirm orig. doesn't change
+  copied.setNumber(size / 3, 21.21);
+  assert(orig.getNumber(size / 3) != 21.21);
+}
+
+void assignmenOpTests(void)
+{
+  size_t size { 25 };
+  NumberArray obj1 { size };
+  NumberArray obj2 { size };
+
+  obj1 = obj2; 
 }
