@@ -207,8 +207,6 @@ void edgeCaseTests(void)
   NumberArray big { big_size };
   assert(big.size() == big_size);
 
-  // I tried chaining = earlier, so I will omit that
-  
   {
     NumberArray big2 { big };
     {
