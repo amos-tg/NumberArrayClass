@@ -16,6 +16,8 @@ const char *STATISTICAL_TESTS =
   "Test (NumberArray {min,max,average}Number methods): ";
 const char *PRINT_TEST = "Test (NumberArray print method): ";
 const char *EDGE_CASE_TEST = "Test (NumberArray edge case tests): ";
+const char *COPY_CONSTRUCTOR_TEST = "Test (NumberArray copy constructor tests): ";
+const char *ASSIGNMENT_OPERATOR_TEST = "Test (NumberArray assignment operator tests): ";
 
 // The test functions follow the testing documents specifications in order,
 // both internally, and in terms of their calling sequence in main().
@@ -46,8 +48,6 @@ void assignmenOpTests(void);
 
 int main(void)
 {
-  // cout << '\n'; seperates the tests dealloc messages
-                                  
   defaultConstructorTest();  
   cout << '\n';
   paramConstructorTest();
@@ -59,6 +59,10 @@ int main(void)
   printTests();
   cout << '\n';
   edgeCaseTests();
+  cout << '\n';
+  copyConstructorTests();
+  cout << '\n';
+  assignmenOpTests();
 
   return 0;
 }
@@ -191,6 +195,8 @@ void edgeCaseTests(void)
 
 void copyConstructorTests(void)
 {
+  cout << COPY_CONSTRUCTOR_TEST;
+  
   // create a new object
   size_t size { 20 };
   NumberArray orig { 20 };
@@ -214,13 +220,48 @@ void copyConstructorTests(void)
   // modify copy and confirm orig. doesn't change
   copied.setNumber(size / 3, 21.21);
   assert(orig.getNumber(size / 3) != 21.21);
+
+  cout << TEST_PASS << endl;
 }
 
 void assignmenOpTests(void)
 {
+  cout << ASSIGNMENT_OPERATOR_TEST;
+  
+  // create two objs of the same size 
   size_t size { 25 };
-  NumberArray obj1 { size };
-  NumberArray obj2 { size };
+  NumberArray assigned { size };
+  NumberArray source { size };
 
-  obj1 = obj2; 
+  // give some values to obj1
+  for (int i {}; i < size; ++i)
+    source.setNumber(i, 11.11);
+
+  // assign one to other
+  assigned = source; 
+
+  // verify correct copy
+  for (int i {}; i < size; ++i)
+    assert(assigned.getNumber(i) == source.getNumber(i));
+
+  // modify source object & confirm assigned object doesn't change
+  source.setNumber(size / 2, 22.9181); 
+  assert(assigned.getNumber(size / 2) != 22.9181);
+
+  // modify assigned object & confirm source object doesn't change
+  assigned.setNumber(size / 2, 423.12848); 
+  assert(source.getNumber(size / 2) != 423.12848);
+
+  // size difference tests
+  size_t size_1 { 20 }, size_2 { 40 };
+  NumberArray obj1 { size_1 }, obj2 { size_2 };
+
+  // get address of final element to make sure mem reallocs
+
+  // assign larger to the smaller
+  obj1 = obj2;
+
+
+
+  cout << TEST_PASS;
 }
