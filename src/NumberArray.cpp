@@ -9,6 +9,35 @@ NumberArray::NumberArray(size_t size)
   size_m = size;
 }
 
+
+NumberArray::NumberArray(const NumberArray& other)
+  // set size and alloc zeroed array
+  : size_m(other.size_m), data_m(new double[other.size_m] {})
+{
+  // deep copy the data
+  for (int i {}; i < size_m; ++i)
+    data_m[i] = other.data_m[i];
+}
+
+NumberArray& NumberArray::operator=(const NumberArray& other) 
+{
+  // self assignment check
+  if (this == &other) 
+    return *this;
+
+  size_m = other.size_m;
+
+  // if not null dealloc data_m then re-alloc zeroed array
+  if (data_m) delete [] data_m;
+  data_m = new double[other.size_m] {};
+
+  // deep copy the data.
+  for (int i {}; i < size_m; ++i)
+    data_m[i] = other.data_m[i];  
+
+  return *this;
+}
+
 NumberArray::~NumberArray() 
 {
   // de-alloc the array

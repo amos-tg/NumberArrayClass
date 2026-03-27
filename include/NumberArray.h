@@ -26,6 +26,10 @@ public:
   /// want to be able to fit in the array maximally.  
   NumberArray(size_t size = DEFAULT_SIZE);
 
+  NumberArray(const NumberArray& other);
+
+  NumberArray& operator=(const NumberArray& other);
+
   /// Deallocates the dynamically allocated double array, and prints a message
   /// which indicates that has been done.
   ~NumberArray();
