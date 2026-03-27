@@ -18,6 +18,7 @@ const char *PRINT_TEST = "Test (NumberArray print method): ";
 const char *EDGE_CASE_TEST = "Test (NumberArray edge case tests): ";
 const char *COPY_CONSTRUCTOR_TEST = "Test (NumberArray copy constructor tests): ";
 const char *ASSIGNMENT_OPERATOR_TEST = "Test (NumberArray assignment operator tests): ";
+const char *DESTRUCT_LIFETIME_TEST = "Test (NumberArray destructor lifetime tests): ";
 
 // The test functions follow the testing documents specifications in order,
 // both internally, and in terms of their calling sequence in main().
@@ -43,8 +44,11 @@ void edgeCaseTests(void);
 /// tests the copy constructor of the NumberArray class
 void copyConstructorTests(void);
 
-/// tests the assignement operator of the NumberArray class
+/// tests the assignment operator of the NumberArray class
 void assignmenOpTests(void);
+
+/// tests that lifetimes are properly handled by the destructor.
+void destructLifetimeTests(void);
 
 int main(void)
 {
@@ -63,6 +67,8 @@ int main(void)
   copyConstructorTests();
   cout << '\n';
   assignmenOpTests();
+  cout << '\n';
+  destructLifetimeTests();
 
   return 0;
 }
@@ -252,16 +258,44 @@ void assignmenOpTests(void)
   assigned.setNumber(size / 2, 423.12848); 
   assert(source.getNumber(size / 2) != 423.12848);
 
-  // size difference tests
+  // size difference test
   size_t size_1 { 20 }, size_2 { 40 };
   NumberArray obj1 { size_1 }, obj2 { size_2 };
 
-  // get address of final element to make sure mem reallocs
+  obj2.setNumber(0, 10.0);
+  obj2.setNumber(size_2 - 1, 10.0);
 
-  // assign larger to the smaller
+  // assign larger to smaller
   obj1 = obj2;
 
+  // check that the size changed and that values are copied correctly
+  assert(obj1.size() == size_2);
+  assert(obj1.getNumber(size_2 - 1) == 10.0);
+  assert(obj1.getNumber(0) == 10.0);
 
+  // self assignment test
+  obj1 = obj1;
+  
+  // data remains unchanged 
+  assert(obj1.size() == size_2);
+  assert(obj1.getNumber(size_2 - 1) == 10.0);
+  assert(obj1.getNumber(0) == 10.0);
 
-  cout << TEST_PASS;
+  cout << TEST_PASS << endl;
+}
+
+void destructLifetimeTests(void)
+{
+  cout << DESTRUCT_LIFETIME_TEST << endl;
+  // create objects inside a block scope
+  {
+    NumberArray obj1, obj2;
+
+    // tests assignment chaining as well
+    obj1 = obj2 = NumberArray{};
+  }
+
+  // should be three messages outputted
+  
+  cout << TEST_PASS << endl;
 }
