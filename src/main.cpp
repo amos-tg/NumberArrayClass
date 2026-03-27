@@ -196,6 +196,29 @@ void edgeCaseTests(void)
   assert(test.getAverage() == -11.123);
   cout << '\n';
   test.print();
+
+  // make sure zero size arrays don't crash
+  NumberArray zero { 0 }; 
+  zero.setNumber(0, 1.0);
+  assert(zero.getNumber(0) == NumberArray::INVALID);
+
+  // larger array size
+  size_t big_size { 1'000'000 };
+  NumberArray big { big_size };
+  assert(big.size() == big_size);
+
+  // I tried chaining = earlier, so I will omit that
+  
+  {
+    NumberArray big2 { big };
+    {
+      // copy constructor and assignment operator
+      // copy constructor (big3 = big2...) 
+      // assignment operator (...big2 = big)
+      NumberArray big3 = big2 = big;
+    }
+  }
+
   cout << TEST_PASS << endl;
 }
 
